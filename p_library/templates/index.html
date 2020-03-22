@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Biblio List</title>
+</head>
+<body>
+    <h1>Добро пожаловать в {{ title }}.</h1>
+    <p>Тут собрано {{ books|length }} книг из моей личной коллекции.</p>
+
+    <table border="1">
+        <tr>
+            <td>Номер</td>
+            <td>Название</td>
+            <td>Описание</td>
+            <td>Год</td>
+            <td>Кол-во</td>
+            <td>Автор</td>
+            <td>Издатель</td>
+            <td>Страна</td>
+        </tr>
+        {% for book in books %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ book.title }}</td>
+            <td>{{ book.description }}</td>
+            <td>{{ book.year_release }}</td>
+            <td>{{ book.copy_count }}</td>
+            <td>{{ book.author.full_name }}</td>
+            <td>{{ book.publisher.pub_house }}</td>
+            <td>{{ book.author.country }}</td>
+            <td>
+                <form action="/index/book_increment/" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" value="{{book.id}}" />
+                    <input type="submit" value="Увеличить кол-во" />
+                </form>
+                <form action="/index/book_decrement/" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" value="{{book.id}}" />
+                    <input type="submit" value="Уменьшить кол-во" />
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

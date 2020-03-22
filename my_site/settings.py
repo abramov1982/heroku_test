@@ -23,7 +23,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'qa9b1cv*j4)-1)70+_d%dy2xn6$wo5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['sleepy-mountain-76743.herokuapp.com']
 
 # Application definition
 
